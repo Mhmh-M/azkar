@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:wght@100;200;300;400;500;600;800;900&family=Roboto:wght@100;300;500&family=Scheherazade+New:wght@400;700&display=swap");
+
+$black-color: #191716;
+$red-color: #440d0f;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Scheherazade New", serif;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+
+header {
+  background-color: $red-color;
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    li a {
+      font-size: 18px;
+      padding: 13px;
+      color: #fff;
+    }
+  }
+}
+
+.container {
+  text-align: end;
+  padding: 18px;
+  height: 80vh;
+  box-shadow: 0 2px 15px rgb(0 0 0 / 10%);
+  color: $black-color;
+  .main-text {
+    font-size: 23px;
+  }
+}
+.info {
+  padding: 5px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #440d0f;
+  color: #ffff;
+  button {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 30px;
+    outline: none;
+    border: none;
+  }
+  p {
+    font-size: 23px;
+  }
+}
