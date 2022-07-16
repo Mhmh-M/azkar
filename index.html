@@ -5,38 +5,50 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Portofolio</title>
+  <title>Azkar</title>
   <!-- FontAwosom -->
   <link rel="stylesheet" href="css/all.min.css">
   <!-- CSS Code -->
   <link rel="stylesheet" href="css/main.css">
+  <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 
 <body>
-  <header>
-    <ul>
-      <li><a href="#">أذكار الصباح</a></li>
-      <li><a href="#">أذكار المساء</a></li>
-    </ul>
+  <!-- Start Header -->
+  <header class="header">
+    <h1 id="ziker_name"></h1>
+    <div class="container">
+      <div class="links">
+        <span class="icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <ul>
+          <li><a id="azkar_alsaba7">أذكار الصباح</a></li>
+          <li><a id="azkar_almsa2">أذكار المساء</a></li>
+          <li><a id="azkar_alslah">أذكار الصلاة</a></li>
+          <li><a id="azkar_altshhd">صيغ التشهد</a></li>
+        </ul>
+      </div>
+    </div>
   </header>
+  <!-- End Header -->
 
   <main>
     <div class="background">
-      <div class="container">
-        <div class="main-text">اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبك، وأنا على عهوك ووعدك ما استطعت، أو بك من شر
-          ما صنعت، أبوء لك بيتمم علي، وأبوء لك بذنبي فاغفر لي، فإنه لا يغني الثوب إلا أنت</div>
-        <button class="detiles">الدليل</button>
-        <p>سبحان اللي عدد خلقه، سبحان الله رضا نفسه، سبحان الله زنة عرشه، سبحان الل مداد كلماته"</p>
+      <div class="box">
+        <div class="main-text"></div>
 
       </div>
     </div>
   </main>
   <footer>
-    <div class="info">
-      <p>الذكر 1 من 14</p>
-      <button>4</button>
-      <p>مرة واحده</p>
-    </div>
+    <p>الذكر <span id="ziker_number"></span> من <span id="totle_ziker"></span></p>
+    <button id="next"><i class="fa-solid fa-caret-left"></i></button>
+    <button id="counter"></button>
+    <button id="back"><i class="fa-solid fa-caret-right"></i></button>
+    <p id="times"></p>
   </footer>
 
 
