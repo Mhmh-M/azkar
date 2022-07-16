@@ -59,6 +59,9 @@ function choose_azkar(azkar_data, azkar_number) {
   ziker_number.innerHTML = counter_track + 1;
   ziker_name.innerHTML = azkar_names[azkar_number];
   times.innerHTML = data[0]['text_count']
+  ziker_number.innerHTML = 1
+  counter_track = 0
+
 
 
 }
