@@ -138,15 +138,20 @@ a {
 
 .box {
   text-align: end;
-  padding: 18px;
-  height: 80vh;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  color: $black-color;
+  padding: 30px;
+  /* height: 80vh; */
+  -webkit-box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  color: #191716;
   width: 365px;
-  margin: 14px auto 30px;
+  margin: 14px 0 30px;
   background-color: #fff;
   border-radius: 20px;
   line-height: 1.8;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
   .main-text {
     font-size: 23px;
