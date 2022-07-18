@@ -6,9 +6,10 @@ let ziker_number = document.querySelector('#ziker_number')
 let totle_ziker = document.querySelector('#totle_ziker')
 let box = document.querySelector(".box")
 let counter_track = 0;
+let header = document.querySelector("header");
 let ul_links = document.querySelector('header ul');
 let icon = document.querySelector('header .icon');
-let span_2 = document.querySelector(".icon span:nth-child(2)")
+let spans = document.querySelector("header .icon span")
 let menu_active = false;
 let ziker_name = document.querySelector('#ziker_name');
 let azkar_names = ['أذكار الصباح', 'أذكار المساء', 'أذكار الصلاة', 'صيغ التشهد'];
@@ -20,17 +21,54 @@ let azkar_altshhd = document.querySelector('#azkar_altshhd');
 let times = document.querySelector("#times");
 
 
-icon.addEventListener('click', () => {
+icon.addEventListener('click', function (e) {
+  e.stopPropagation;
   if (!menu_active) {
     menu_active = true
-    span_2.classList.add("full-width");
+    header.style.overflow = "visible";
+    icon.classList.add("active-icon");
     ul_links.style.display = "block";
+    ul_links.classList.add("move-to-left")
   } else {
     menu_active = false
-    span_2.classList.remove("full-width");
+    header.style.overflow = "hidden";
+    icon.classList.remove("active-icon");
     ul_links.style.display = "none";
+    ul_links.classList.remove("move-to-left")
+  }
+});
+
+ul_links.onclick = function (e) {
+  e.stopPropagation;
+}
+
+spans.onclick = function (e) {
+  e.stopPropagation
+}
+
+
+document.addEventListener("click", (e) => {
+  if (e.target !== icon && e.target !== ul_links && e.target !== spans) {
+    if (icon.classList.contains("active-icon")) {
+      menu_active = false
+      header.style.overflow = "hidden";
+      icon.classList.remove("active-icon");
+      ul_links.style.display = "none";
+      ul_links.classList.remove("move-to-left")
+    }
   }
 })
+
+
+document.onkeyup = function (e) {
+  if (e.key === "Escape") {
+    menu_active = false
+    header.style.overflow = "hidden";
+    icon.classList.remove("active-icon");
+    ul_links.style.display = "none";
+    ul_links.classList.remove("move-to-left")
+  }
+}
 
 data = day_data;
 main_text.innerHTML = data[0]['zakr'];
@@ -102,12 +140,12 @@ function count_action() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  box.addEventListener('click', chooseSide);
+  document.querySelector("html").addEventListener('click', chooseSide);
 });
 
 function chooseSide(e) {
   const { clientX } = e;
-  const { clientWidth } = box
+  const { clientWidth } = document.querySelector("html")
   if (clientX < (clientWidth / 2)) {
     next_action()
   } else {

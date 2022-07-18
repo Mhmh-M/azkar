@@ -52,6 +52,10 @@ a {
   display: flex;
   justify-content: end;
   position: relative;
+  height: 67px;
+  overflow: hidden;
+  transition: 0.6s;
+
   h1 {
     position: absolute;
     top: 50%;
@@ -59,6 +63,7 @@ a {
     transform: translate(-50%, -50%);
     color: #fff;
     font-size: 24px;
+    margin-bottom: 5px;
   }
   .container {
     display: flex;
@@ -67,70 +72,85 @@ a {
     margin: 0;
 
     .links {
-      position: relative;
-    }
+      .icon {
+        width: 40px;
+        height: 22px;
+        display: block;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.5s ease;
+      }
+      .active-icon {
+        span {
+          position: absolute;
+          left: 0;
+        }
+        span:first-child {
+          transform: rotate(45deg);
+          top: 8px;
+        }
+        span:nth-child(2) {
+          opacity: 0;
+          top: 8px;
+        }
+        span:last-child {
+          transform: rotate(-45deg);
+          top: 8px;
+        }
+      }
 
-    .links .icon {
-      width: 40px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
+      .icon span {
+        display: block;
+        width: 100% !important;
+        margin-bottom: 5px;
+        background-color: #fff;
+        height: 4px;
+        border-radius: 3px;
+        transition: all 0.6s ease;
+      }
 
-    .links .icon span {
-      margin-bottom: 5px;
-      background-color: #fff;
-      height: 4px;
-    }
+      ul {
+        list-style: none;
+        background-color: $red-color;
+        position: absolute;
+        right: 20px;
+        top: calc(100% + 4px);
+        min-width: 200px;
+        display: none;
+        z-index: 5;
+        transition: 0.6s;
+        transform: translateX(150%);
+        border-radius: 4px;
+      }
+      .move-to-left {
+        transform: translateX(0px);
+      }
 
-    .links .icon span:first-child,
-    .links .icon span:last-child,
-    .full-width {
-      width: 100% !important;
-    }
+      ul::before {
+        content: "";
+        border-width: 11px;
+        border-color: transparent transparent #ddd transparent;
+        border-style: solid;
+        position: absolute;
+        right: 5px;
+        top: -22px;
+      }
 
-    .links .icon span:nth-child(2) {
-      width: 60%;
-      transition: 0.3s;
-    }
+      ul li a {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        transition: 0.4s;
+        color: #ffff;
+        text-align: end;
+      }
+      ul li a:hover {
+        padding-right: 25px;
+      }
 
-    .links ul {
-      list-style: none;
-      background-color: $red-color;
-      padding: 0;
-      margin: 0;
-      position: absolute;
-      right: 0;
-      top: calc(100% + 23px);
-      min-width: 200px;
-      display: none;
-      z-index: 5;
-    }
-
-    .links ul::before {
-      content: "";
-      border-width: 11px;
-      border-color: transparent transparent #ddd transparent;
-      border-style: solid;
-      position: absolute;
-      right: 5px;
-      top: -22px;
-    }
-
-    .links ul li a {
-      display: block;
-      padding: 10px;
-      text-decoration: none;
-      transition: 0.4s;
-      color: #ffff;
-      text-align: end;
-    }
-    .links ul li a:hover {
-      padding-right: 25px;
-    }
-
-    .links ul li:not(:last-child) a {
-      border-bottom: 1px solid #ddd;
+      ul li:not(:last-child) a {
+        border-bottom: 1px solid #ddd;
+      }
     }
   }
 }
@@ -152,6 +172,7 @@ a {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  overflow: hidden;
 
   .main-text {
     font-size: 23px;
@@ -186,7 +207,7 @@ footer {
   color: #ffff;
   position: fixed;
   width: 100%;
-  bottom: 20px;
+  bottom: 25px;
   #counter {
     width: 100px;
     height: 100px;
@@ -220,6 +241,9 @@ footer {
     font-size: 25px;
     color: $red-color;
     cursor: pointer;
+  }
+  #next {
+    margin-right: 40px;
   }
 
   p {
