@@ -140,12 +140,12 @@ function count_action() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector("html").addEventListener('click', chooseSide);
+  box.addEventListener('click', chooseSide);
 });
 
 function chooseSide(e) {
   const { clientX } = e;
-  const { clientWidth } = document.querySelector("html")
+  const { clientWidth } = box
   if (clientX < (clientWidth / 2)) {
     next_action()
   } else {
