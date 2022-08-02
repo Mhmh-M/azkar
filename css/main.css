@@ -129,6 +129,8 @@ a {
 .header .container .links .move-to-left {
   -webkit-transform: translateX(0px);
           transform: translateX(0px);
+  -webkit-animation: go-left 0.6s ease;
+          animation: go-left 0.6s ease;
 }
 .header .container .links ul::before {
   content: "";
@@ -253,5 +255,27 @@ footer p {
   footer #next,
 footer #back {
     display: block;
+  }
+}
+
+@-webkit-keyframes go-left {
+  0% {
+    -webkit-transform: translateX(150%);
+            transform: translateX(150%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@keyframes go-left {
+  0% {
+    -webkit-transform: translateX(150%);
+            transform: translateX(150%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
   }
 }
