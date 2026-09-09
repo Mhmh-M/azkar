@@ -515,7 +515,7 @@ let close_modal = document.querySelector(".close-modal");
 let history_stats = document.getElementById("history-stats");
 
 function updateHistoryUI() {
-  const allData = [day_data_full, night_data_full, azkat_salah_full, tashahd_full];
+  const allData = [day_filtered, night_filtered, salah_filtered, tashahd_filtered];
   history_stats.innerHTML = "";
   
   azkar_names.forEach((name, index) => {
@@ -743,19 +743,19 @@ setInterval(() => {
       let targetCat = null;
       
       // Salah Azkar reminder for the current active prayer
-      if (!isCategoryDone(2, azkat_salah_full)) { 
+      if (!isCategoryDone(2, salah_filtered)) { 
         pending.push(`أذكار صلاة ${activeName}`); 
         targetCat = 2; 
       }
       
       // Morning/Evening Azkar reminder based on time
       if (activeKey === "Fajr" || activeKey === "Dhuhr") {
-        if (!isCategoryDone(0, day_data_full)) { 
+        if (!isCategoryDone(0, day_filtered)) { 
           pending.push("أذكار الصباح"); 
           targetCat = 0; 
         }
       } else {
-        if (!isCategoryDone(1, night_data_full)) { 
+        if (!isCategoryDone(1, night_filtered)) { 
           pending.push("أذكار المساء"); 
           targetCat = 1; 
         }
