@@ -173,6 +173,8 @@ main {
   justify-content: center;
   align-items: center;
   padding: 90px 20px 100px; /* Space for header and footer */
+  position: relative;
+  z-index: 1;
 }
 
 .background {
@@ -190,6 +192,7 @@ main {
   box-shadow: var(--shadow);
   text-align: center;
   position: relative;
+  z-index: 1;
   transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
   user-select: none;
   border: 1px solid var(--border-color);

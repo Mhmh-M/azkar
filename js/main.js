@@ -29,12 +29,10 @@ icon.addEventListener("click", function (e) {
   e.stopPropagation();
   if (!menu_active) {
     menu_active = true;
-    header.style.overflow = "visible";
     icon.classList.add("active-icon");
     ul_links.classList.add("move-to-left");
   } else {
     menu_active = false;
-    header.style.overflow = "hidden";
     icon.classList.remove("active-icon");
     ul_links.classList.remove("move-to-left");
   }
@@ -44,7 +42,6 @@ document.addEventListener("click", (e) => {
   if (!icon.contains(e.target) && !ul_links.contains(e.target)) {
     if (menu_active) {
       menu_active = false;
-      header.style.overflow = "hidden";
       icon.classList.remove("active-icon");
       ul_links.classList.remove("move-to-left");
     }
@@ -54,7 +51,6 @@ document.addEventListener("click", (e) => {
 document.onkeyup = function (e) {
   if (e.key === "Escape") {
     menu_active = false;
-    header.style.overflow = "hidden";
     icon.classList.remove("active-icon");
     ul_links.classList.remove("move-to-left");
   } else if (e.key === "ArrowLeft") {
@@ -316,7 +312,7 @@ function choose_azkar(azkar_data, azkar_number) {
   
   // Close menu
   menu_active = false;
-  header.style.overflow = "hidden";
+  header.style.overflow = "";
   icon.classList.remove("active-icon");
   ul_links.classList.remove("move-to-left");
 }
@@ -540,7 +536,7 @@ function updateHistoryUI() {
 show_history.addEventListener("click", () => {
   // Close menu if open
   menu_active = false;
-  header.style.overflow = "hidden";
+  header.style.overflow = "";
   icon.classList.remove("active-icon");
   ul_links.classList.remove("move-to-left");
   
@@ -702,6 +698,10 @@ setInterval(() => {
   const timings = JSON.parse(timingsStr);
   const prayerNames = { "Fajr": "الفجر", "Dhuhr": "الظهر", "Asr": "العصر", "Maghrib": "المغرب", "Isha": "العشاء" };
   
+  let activeKey = null;
+  let activeName = "";
+  let activeDiffMinutes = -1;
+  
   for (let [key, name] of Object.entries(prayerNames)) {
     if (!timings[key]) continue;
     let parts = timings[key].split(":");
@@ -710,6 +710,12 @@ setInterval(() => {
     
     let diffMs = now.getTime() - pTime.getTime();
     let diffMinutes = Math.floor(diffMs / 60000);
+    
+    if (diffMs >= 0) {
+      activeKey = key;
+      activeName = name;
+      activeDiffMinutes = diffMinutes;
+    }
     
     // 1. Notify at prayer time (within 0-2 min window to not miss it)
     if (diffMinutes >= 0 && diffMinutes < 2) {
@@ -724,24 +730,39 @@ setInterval(() => {
         sendNotification(title, body, targetCat);
       }
     }
-    
-    // 2. Reminder every 30 minutes if not finished
-    if (diffMinutes >= 30) {
-      let intervals = Math.floor(diffMinutes / 30);
-      let reminderKey = `reminder_${now.getDate()}_${key}_${intervals}`;
-      if (!localStorage.getItem(reminderKey)) {
-        localStorage.setItem(reminderKey, "true");
-        
-        let pending = [];
-        let targetCat = null;
-        if (!isCategoryDone(2, azkat_salah_full)) { pending.push("أذكار الصلاة"); targetCat = 2; }
-        
-        if (key === "Fajr" && !isCategoryDone(0, day_data_full)) { pending.push("أذكار الصباح"); targetCat = 0; }
-        if (key === "Asr" && !isCategoryDone(1, night_data_full)) { pending.push("أذكار المساء"); targetCat = 1; }
-        
-        if (pending.length > 0) {
-          sendNotification("تذكير بالأذكار 📿", `تذكير: لم تنتهِ بعد من قراءة: ${pending.join(" و ")}. اغتنم الأجر!`, targetCat);
+  }
+  
+  // 2. Reminder every 30 minutes if not finished (based on the current active prayer)
+  if (activeKey && activeDiffMinutes >= 30) {
+    let intervals = Math.floor(activeDiffMinutes / 30);
+    let reminderKey = `reminder_${now.getDate()}_${activeKey}_${intervals}`;
+    if (!localStorage.getItem(reminderKey)) {
+      localStorage.setItem(reminderKey, "true");
+      
+      let pending = [];
+      let targetCat = null;
+      
+      // Salah Azkar reminder for the current active prayer
+      if (!isCategoryDone(2, azkat_salah_full)) { 
+        pending.push(`أذكار صلاة ${activeName}`); 
+        targetCat = 2; 
+      }
+      
+      // Morning/Evening Azkar reminder based on time
+      if (activeKey === "Fajr" || activeKey === "Dhuhr") {
+        if (!isCategoryDone(0, day_data_full)) { 
+          pending.push("أذكار الصباح"); 
+          targetCat = 0; 
         }
+      } else {
+        if (!isCategoryDone(1, night_data_full)) { 
+          pending.push("أذكار المساء"); 
+          targetCat = 1; 
+        }
+      }
+      
+      if (pending.length > 0) {
+        sendNotification("تذكير بالأذكار 📿", `تذكير: لم تنتهِ بعد من قراءة: ${pending.join(" و ")}. اغتنم الأجر!`, targetCat);
       }
     }
   }
